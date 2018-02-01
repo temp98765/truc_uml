@@ -12,4 +12,14 @@ public class ControleurEnregistrerUnAchatOuUneVente {
 		}
 		return Catalogue.getCatalogue().acheterStock(nomProduit, qt);
 	}
+	
+	public static boolean vendreStock(String nomProduit, String qteVendu) {
+		int qt;
+		try {
+			qt = Integer.parseInt(qteVendu);
+		} catch (NumberFormatException e) {
+			return false;
+		}
+		return Catalogue.getCatalogue().vendreStock(nomProduit, qt);
+	}
 }

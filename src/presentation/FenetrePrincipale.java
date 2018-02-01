@@ -3,6 +3,7 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
+import application.ControleurConnaitreEtatStock;
 import metier.Catalogue;
 
 
@@ -77,7 +78,7 @@ public class FenetrePrincipale extends JFrame implements ActionListener,
 //		String[] tabCategories = new String[] {"Bio", "Luxe" };
 		
 		if (e.getSource() == btAfficher)
-			new FenetreAffichage("ajourd'hui nous allons faire de la programmation en 5 couches");
+			new FenetreAffichage(ControleurConnaitreEtatStock.getStock());
 		if (e.getSource() == btNouveauProduit)
 //			new FenetreNouveauProduit(tabCategories);
 			new FenetreNouveauProduit();
@@ -92,7 +93,6 @@ public class FenetrePrincipale extends JFrame implements ActionListener,
 		if (e.getSource() == btVente)
 			new FenetreVente(tabProduits);
 		if (e.getSource() == btQuitter){
-			System.out.println("Au revoir");
 			System.exit(0);
 		}	
 	}

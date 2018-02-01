@@ -4,6 +4,8 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
+import application.ControleurEnregistrerUnAchatOuUneVente;
+
 public class FenetreVente extends JFrame implements ActionListener {
 
 	private JButton btVente;
@@ -32,7 +34,13 @@ public class FenetreVente extends JFrame implements ActionListener {
 	}
 
 	public void actionPerformed(ActionEvent e) {
-		this.dispose();
+		Object source = e.getSource();
+		if (source == btVente) {
+			Object element = combo.getSelectedItem();
+			if (element != null) {
+				ControleurEnregistrerUnAchatOuUneVente.vendreStock(element.toString(), txtQuantite.getText());
+			}
+		}
 	}
 
 }
