@@ -33,7 +33,7 @@ create table Produit (
 
 	constraint pk_produit_id primary key (id),
 	constraint un_nom UNIQUE (catalogueId, nom),
-	constraint fk_catalogueId foreign key (catalogueId) references Catalogue(id)
+	constraint fk_catalogueId foreign key (catalogueId) references Catalogue(id) ON DELETE CASCADE
 );
 
 create sequence seq_produit_id start with 1;
