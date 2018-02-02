@@ -3,11 +3,19 @@ package application;
 import java.util.List;
 
 import metier.Catalogue;
+import metier.I_Catalogue;
 import metier.I_Produit;
 
 public class ControleurCreerOuSupprimerUnProduit {
+	
+	private static I_Catalogue catalogue;
+	
+	public static void setCatalogue(I_Catalogue _catalogue) {
+		catalogue = _catalogue;
+	}
+	
 	public static boolean addProduit(I_Produit produit) {
-		return Catalogue.getCatalogue().addProduit(produit);
+		return catalogue.addProduit(produit);
 	}
 	
 	public static boolean addProduit(String nom, String prix, String qte) {
@@ -21,10 +29,10 @@ public class ControleurCreerOuSupprimerUnProduit {
 			return false;
 		}
 			
-		return Catalogue.getCatalogue().addProduit(nom, prixNumber, qteNumber);
+		return catalogue.addProduit(nom, prixNumber, qteNumber);
 	}
 	
 	public static boolean supprimerProduit(String nomProduit) {
-		return Catalogue.getCatalogue().removeProduit(nomProduit);
+		return catalogue.removeProduit(nomProduit);
 	}
 }

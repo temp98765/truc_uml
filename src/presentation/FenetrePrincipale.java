@@ -4,6 +4,7 @@ import java.awt.event.*;
 import javax.swing.*;
 
 import application.ControleurConnaitreEtatStock;
+import application.ControleurGererCatalogue;
 import metier.Catalogue;
 
 
@@ -18,10 +19,8 @@ public class FenetrePrincipale extends JFrame implements ActionListener, WindowL
 	private JButton btAchat;
 	private JButton btVente;
 	private JButton btQuitter;
-
 	
 	public FenetrePrincipale() {
-		
 		setTitle("exercice Produits");
 		setBounds(500, 500, 320, 250);
 		JPanel panAffichage = new JPanel();
@@ -69,12 +68,7 @@ public class FenetrePrincipale extends JFrame implements ActionListener, WindowL
 
 	public void actionPerformed(ActionEvent e) {
 
-/* tabProduits permet de tester le fonctionnement des fenêtres avec un tableau de noms de produits "en dur"
-   Quand l'application fonctionnera, il faudra bien sûr récupérer les noms des produits dans le Catalogue */
-		//String[] tabProduits = new String[] { "Mars", "Raider", "Twix", "Treets", "M&M's", "Smarties" };
-		String[] tabProduits = Catalogue.getCatalogue().getNomProduits();
-/* Même chose pour tabCategories (partie 4) */ 		
-//		String[] tabCategories = new String[] {"Bio", "Luxe" };
+		String[] tabProduits = ControleurConnaitreEtatStock.getAllProductName();
 		
 		if (e.getSource() == btAfficher)
 			new FenetreAffichage(ControleurConnaitreEtatStock.getStock());
@@ -106,11 +100,5 @@ public class FenetrePrincipale extends JFrame implements ActionListener, WindowL
 	public void windowDeiconified(WindowEvent arg0) {}
 	public void windowIconified(WindowEvent arg0) {}
 	public void windowOpened(WindowEvent arg0) {}
-
-	
-	
-	public static void main(String[] args) {
-		new FenetrePrincipale();
-	}
 
 }

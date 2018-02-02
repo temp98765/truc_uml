@@ -1,8 +1,16 @@
 package application;
 
-import metier.Catalogue;
+import metier.I_Catalogue;
 
 public class ControleurEnregistrerUnAchatOuUneVente {
+	
+	private static I_Catalogue catalogue;
+	
+	public static void setCatalogue(I_Catalogue _catalogue) {
+		catalogue = _catalogue;
+	}
+	
+	
 	public static boolean acheterStock(String nomProduit, String qteAchetee) {
 		int qt;
 		try {
@@ -10,7 +18,7 @@ public class ControleurEnregistrerUnAchatOuUneVente {
 		} catch (NumberFormatException e) {
 			return false;
 		}
-		return Catalogue.getCatalogue().acheterStock(nomProduit, qt);
+		return catalogue.acheterStock(nomProduit, qt);
 	}
 	
 	public static boolean vendreStock(String nomProduit, String qteVendu) {
@@ -20,6 +28,6 @@ public class ControleurEnregistrerUnAchatOuUneVente {
 		} catch (NumberFormatException e) {
 			return false;
 		}
-		return Catalogue.getCatalogue().vendreStock(nomProduit, qt);
+		return catalogue.vendreStock(nomProduit, qt);
 	}
 }

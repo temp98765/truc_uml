@@ -16,11 +16,7 @@ public class CatalogueTest {
 	
 	@Before
 	public void setUp() {
-		//cat = new Catalogue();
-//		Si votre Catalogue est un Singleton, il faut changer la ligne précédente puis vider le Catalogue avec la méthode clear() comme indiqué à la ligne suivante
-//		cat.clear();
-		cat = Catalogue.getCatalogue();
-		cat.clear();
+		cat = new Catalogue("test");
 	}
 	
 	@Test

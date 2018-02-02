@@ -12,13 +12,14 @@ import dal.ProduitDAOFactory;
 
 public class Catalogue implements I_Catalogue {
     
+	private String name;
     private final List<I_Produit> produits;
     private I_ProduitDAO produitDAO;
     
-    private static Catalogue catalogue = null;
     
-    private Catalogue() {
-		try {
+    public Catalogue(String name) {
+		this.name = name;
+    	try {
 			if (produitDAO == null) {
 				produitDAO = ProduitDAOFactory.createProduitDao();
 			}
@@ -28,14 +29,6 @@ public class Catalogue implements I_Catalogue {
 			throw new RuntimeException(e);
 		}
     }
-    
-    public static Catalogue getCatalogue() {
-    	if (catalogue == null) {
-    		catalogue = new Catalogue();
-    	}
-    	return catalogue;
-    }
-    
     
     
     private String cleanName(String name) {
@@ -181,5 +174,11 @@ public class Catalogue implements I_Catalogue {
 		} catch (ProduitDAOException e) {
 			throw new RuntimeException(e);
 		}
+	}
+
+
+	@Override
+	public String getNom() {
+		return name;
 	}
 }

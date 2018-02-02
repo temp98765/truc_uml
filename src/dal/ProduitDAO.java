@@ -54,7 +54,6 @@ public class ProduitDAO implements I_ProduitDAO {
 			
 			addProductStm.executeUpdate();
 		} catch (SQLException e) {
-			dispose();
 			throw new ProduitDAOException(e);
 		}
 	}
@@ -68,7 +67,6 @@ public class ProduitDAO implements I_ProduitDAO {
 			
 			updateProductStm.executeUpdate();
 		} catch (SQLException e) {
-			dispose();
 			throw new ProduitDAOException(e);
 		}
 	}
@@ -79,7 +77,6 @@ public class ProduitDAO implements I_ProduitDAO {
 			removeProductStm.setString(1, product.getNom());
 			removeProductStm.executeQuery();
 		} catch (SQLException e) {
-			dispose();
 			throw new ProduitDAOException(e);
 		}
 	}
@@ -98,7 +95,6 @@ public class ProduitDAO implements I_ProduitDAO {
 			}
 			return produits;
 		} catch (SQLException e) {
-			dispose();
 			throw new ProduitDAOException(e);
 		}
 	}
