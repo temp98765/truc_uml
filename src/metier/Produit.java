@@ -14,8 +14,9 @@ public class Produit implements I_Produit {
     private final String nom;
     private final double prixHT;
     private int quantite;
+    private String catalogueName;
     
-    public Produit(String nom, double prixHT, int quantite) {
+    public Produit(String nom, double prixHT, int quantite, String catalogueName) {
     	 if (dao == null) {
          	try {
  				dao = ProduitDAOFactory.createProduitDao();
@@ -27,6 +28,7 @@ public class Produit implements I_Produit {
     	this.nom = nom;
         this.prixHT = prixHT;
         this.quantite = quantite;
+        this.catalogueName = catalogueName;
     }
     
     
@@ -112,5 +114,11 @@ public class Produit implements I_Produit {
 		} catch (ProduitDAOException e) {
 			throw new RuntimeException(e);
 	    }
+	}
+
+
+	@Override
+	public String getCatalogueNom() {
+		return catalogueName;
 	}
 }

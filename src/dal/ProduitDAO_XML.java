@@ -74,7 +74,7 @@ public class ProduitDAO_XML {
 	public I_Produit lire(String nom) {
 		Element e = chercheProduit(nom);
 		if (e != null)
-			return new Produit(e.getAttributeValue("nom"), Double.parseDouble(e.getChildText("prixHT")), Integer.parseInt(e.getChildText("quantite")));
+			return new Produit(e.getAttributeValue("nom"), Double.parseDouble(e.getChildText("prixHT")), Integer.parseInt(e.getChildText("quantite")), null); //@fix me
 		else
 			return null;
 	}
@@ -90,7 +90,7 @@ public class ProduitDAO_XML {
 				String nomP = prod.getAttributeValue("nom");
 				Double prix = Double.parseDouble(prod.getChild("prixHT").getText());
 				int qte = Integer.parseInt(prod.getChild("quantite").getText());
-				l.add(new Produit(nomP, prix, qte));
+				l.add(new Produit(nomP, prix, qte, null)); //@fix me
 			}
 		} catch (Exception e) {
 			System.out.println("erreur lireTous tous les produits");

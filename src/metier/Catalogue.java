@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 
+import application.ControleurGererCatalogue;
 import dal.I_ProduitDAO;
 import dal.ProduitDAO;
 import dal.ProduitDAOException;
@@ -66,13 +67,13 @@ public class Catalogue implements I_Catalogue {
             return false;
         }
         produits.add(produit);
-        produit.save(); //new product
+        produit.save(); //new product must be save on db
         return true;
     }
     
     @Override
     public boolean addProduit(String nom, double prix, int qte) {
-        Produit myProduct = new Produit(cleanName(nom), prix, qte);
+        Produit myProduct = new Produit(cleanName(nom), prix, qte, ControleurGererCatalogue.getNameCurrentCatalogue());
         return addProduit(myProduct);
     }
     
