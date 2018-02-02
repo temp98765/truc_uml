@@ -8,6 +8,7 @@ import java.util.List;
 import dal.I_ProduitDAO;
 import dal.ProduitDAO;
 import dal.ProduitDAOException;
+import dal.ProduitDAOFactory;
 
 public class Catalogue implements I_Catalogue {
     
@@ -19,7 +20,7 @@ public class Catalogue implements I_Catalogue {
     private Catalogue() {
 		try {
 			if (produitDAO == null) {
-				produitDAO = ProduitDAO.getInstance();
+				produitDAO = ProduitDAOFactory.createProduitDao();
 			}
 			
 			produits = produitDAO.getAllProduct();
@@ -173,6 +174,9 @@ public class Catalogue implements I_Catalogue {
 	@Override
 	public void dispose() {
 		try {
+			for (I_Produit produit : produits) {
+				produit.dispose();
+			}
 			produitDAO.dispose();
 		} catch (ProduitDAOException e) {
 			throw new RuntimeException(e);

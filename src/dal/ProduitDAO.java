@@ -20,16 +20,7 @@ public class ProduitDAO implements I_ProduitDAO {
 	private PreparedStatement removeProductStm;
 	private PreparedStatement getAllProductStm;
 	
-	private static ProduitDAO instance;
-	
-	public static I_ProduitDAO getInstance() throws ProduitDAOException {
-		if (instance == null) {
-			instance = new ProduitDAO();
-		}
-		return instance;
-	}
-	
-	private ProduitDAO() throws ProduitDAOException {
+	public ProduitDAO() throws ProduitDAOException {
 		try {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
 			connection = DriverManager.getConnection("jdbc:oracle:thin:@162.38.222.149:1521:iut", "amiotj", "salade");

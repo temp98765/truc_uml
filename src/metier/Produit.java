@@ -5,6 +5,7 @@ import java.text.DecimalFormat;
 import dal.I_ProduitDAO;
 import dal.ProduitDAO;
 import dal.ProduitDAOException;
+import dal.ProduitDAOFactory;
 
 public class Produit implements I_Produit {
     
@@ -17,7 +18,7 @@ public class Produit implements I_Produit {
     public Produit(String nom, double prixHT, int quantite) {
     	 if (dao == null) {
          	try {
- 				dao = ProduitDAO.getInstance();
+ 				dao = ProduitDAOFactory.createProduitDao();
  			} catch (ProduitDAOException e) {
  				throw new RuntimeException(e);
  			}
