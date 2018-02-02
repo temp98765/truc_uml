@@ -33,9 +33,4 @@ public class ProduitDAO_XML_Adaptator implements I_ProduitDAO {
 		
 	}
 
-	@Override
-	public List<I_Produit> getAllProduct() throws ProduitDAOException {
-		return instance.lireTous();
-	}
-
 }

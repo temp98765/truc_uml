@@ -5,6 +5,10 @@ import javax.swing.*;
 
 import application.ControleurConnaitreEtatStock;
 import application.ControleurGererCatalogue;
+import dal.CatalogueDAOException;
+import dal.CatalogueDAOFactory;
+import dal.ProduitDAOException;
+import dal.ProduitDAOFactory;
 import metier.Catalogue;
 
 
@@ -86,12 +90,17 @@ public class FenetrePrincipale extends JFrame implements ActionListener, WindowL
 		}
 		if (e.getSource() == btVente)
 			new FenetreVente(tabProduits);
-		if (e.getSource() == btQuitter){
+		if (e.getSource() == btQuitter) {
+			CatalogueDAOFactory.disposeAll();
+			ProduitDAOFactory.disposeAll();
 			System.exit(0);
 		}	
 	}
 
 	public void windowClosing(WindowEvent arg0) {
+		CatalogueDAOFactory.disposeAll();
+		ProduitDAOFactory.disposeAll();
+		
 		System.exit(0);
 	}
 

@@ -6,6 +6,9 @@ import java.util.Iterator;
 import java.util.List;
 
 import application.ControleurGererCatalogue;
+import dal.CatalogueDAOException;
+import dal.CatalogueDAOFactory;
+import dal.I_CatalogueDAO;
 import dal.I_ProduitDAO;
 import dal.ProduitDAO;
 import dal.ProduitDAOException;
@@ -15,18 +18,16 @@ public class Catalogue implements I_Catalogue {
     
 	private String name;
     private final List<I_Produit> produits;
-    private I_ProduitDAO produitDAO;
+    private I_CatalogueDAO catalogueDAO;
     
     
     public Catalogue(String name) {
 		this.name = name;
-    	try {
-			if (produitDAO == null) {
-				produitDAO = ProduitDAOFactory.createProduitDao();
-			}
-			
-			produits = produitDAO.getAllProduct();
-		} catch (ProduitDAOException e) {
+    	
+		try {
+			catalogueDAO = CatalogueDAOFactory.getCatalogueDAO();
+			produits = catalogueDAO.getAllProductFromCatalogue(name);
+		} catch (CatalogueDAOException e) {
 			throw new RuntimeException(e);
 		}
     }
@@ -112,7 +113,6 @@ public class Catalogue implements I_Catalogue {
         while (it.hasNext()) {
         	I_Produit produit = it.next();
             if (produit.getNom().equals(myName)) {
-                produit.dispose();
             	it.remove();
             	return true;
             }
@@ -164,18 +164,6 @@ public class Catalogue implements I_Catalogue {
         str += "\nMontant total TTC du stock : " + new DecimalFormat("#0.00").format(getMontantTotalTTC()) + " €";
         return str;
     }
-
-	@Override
-	public void dispose() {
-		try {
-			for (I_Produit produit : produits) {
-				produit.dispose();
-			}
-			produitDAO.dispose();
-		} catch (ProduitDAOException e) {
-			throw new RuntimeException(e);
-		}
-	}
 
 
 	@Override

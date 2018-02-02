@@ -10,7 +10,7 @@ import metier.I_Catalogue;
 
 public class ControleurGererCatalogue {
 	
-	private static I_CatalogueDAO dao = CatalogueDAOFactory.createCatalogueDAO();
+	private static I_CatalogueDAO dao = CatalogueDAOFactory.getCatalogueDAO();
 	private static I_Catalogue currentCatalogue;
 	
 	public static List<String> getAllCataloguesName() {

@@ -18,7 +18,6 @@ public class ProduitDAO implements I_ProduitDAO {
 	private PreparedStatement addProductStm;
 	private PreparedStatement updateProductStm;
 	private PreparedStatement removeProductStm;
-	private PreparedStatement getAllProductStm;
 	private PreparedStatement getIdFromCatalogueName;
 	private PreparedStatement getNameFromCatalogueId;
 	
@@ -29,7 +28,6 @@ public class ProduitDAO implements I_ProduitDAO {
 			addProductStm = connection.prepareStatement("insert into Produit values (null, ?, ?, ?, ?)");
 			updateProductStm = connection.prepareStatement("update Produit set prixHT = ?, quantite = ? where nom = ? and catalogueId = ?");
 			removeProductStm = connection.prepareStatement("delete from Produit where nom = ? and catalogueId = ?");
-			getAllProductStm = connection.prepareStatement("select catalogueId, nom, prixHt, quantite from Produit");
 			getIdFromCatalogueName = connection.prepareStatement("select id from Catalogue where nom = ?");
 			getNameFromCatalogueId = connection.prepareStatement("select nom from Catalogue where id = ?");
 		} catch (SQLException | ClassNotFoundException e) {
@@ -97,26 +95,6 @@ public class ProduitDAO implements I_ProduitDAO {
 			removeProductStm.setString(1, product.getNom());
 			removeProductStm.setString(2, getCatalogueIdFromName(product.getCatalogueNom()));
 			removeProductStm.executeQuery();
-		} catch (SQLException e) {
-			throw new ProduitDAOException(e);
-		}
-	}
-	
-	@Override
-	public List<I_Produit> getAllProduct() throws ProduitDAOException {
-		try {
-			ResultSet result = getAllProductStm.executeQuery();
-			List<I_Produit> produits = new ArrayList<>();
-			while (result.next()) {
-				//no need to check for null
-				String catalogueId = result.getString(1);
-				String catalogueName = getCatalogueNameFromId(catalogueId);
-				String string = result.getString(2);
-				double prixHt = result.getDouble(3);
-				int qt = result.getInt(4);
-				produits.add(new Produit(string, prixHt, qt, catalogueName));
-			}
-			return produits;
 		} catch (SQLException e) {
 			throw new ProduitDAOException(e);
 		}

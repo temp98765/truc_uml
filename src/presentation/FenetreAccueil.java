@@ -8,6 +8,8 @@ import java.awt.Dimension;
 import java.awt.TextArea;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.util.List;
 
 import javax.swing.JButton;
@@ -22,7 +24,7 @@ import javax.swing.JTextField;
 import application.ControleurGererCatalogue;
 import metier.I_Catalogue;
 
-public class FenetreAccueil extends JFrame implements ActionListener {
+public class FenetreAccueil extends JFrame implements ActionListener, WindowListener {
 
 	private JButton btAjouter, btSupprimer, btSelectionner;
 	private JTextField txtAjouter;
@@ -95,7 +97,7 @@ public class FenetreAccueil extends JFrame implements ActionListener {
 		btSelectionner.addActionListener(this);
 		
 		updateCatalogueInfo();
-		
+		addWindowListener(this);
 		setVisible(true);
 	}
 
@@ -130,12 +132,13 @@ public class FenetreAccueil extends JFrame implements ActionListener {
 		}
 		if (e.getSource() == btSelectionner)
 		{
-			String texteSelection = (String)cmbSupprimer.getSelectedItem();
+			String texteSelection = (String)cmbSelectionner.getSelectedItem();
 			if (texteSelection != null) 
 			{
 				ControleurGererCatalogue.setCurrentCatalogue(texteSelection);
-				dispose();
+				
 				new FenetrePrincipale();
+				dispose();
 			}
 		}	
 	}
@@ -166,5 +169,46 @@ public class FenetreAccueil extends JFrame implements ActionListener {
 	
 	public static void main(String[] args) {
 		new FenetreAccueil();
+	}
+
+	@Override
+	public void windowActivated(WindowEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void windowClosed(WindowEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void windowClosing(WindowEvent e) {
+		System.exit(0);
+	}
+
+	@Override
+	public void windowDeactivated(WindowEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void windowDeiconified(WindowEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void windowIconified(WindowEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void windowOpened(WindowEvent e) {
+		// TODO Auto-generated method stub
+		
 	}
 }
