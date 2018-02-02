@@ -169,4 +169,13 @@ public class Catalogue implements I_Catalogue {
         str += "\nMontant total TTC du stock : " + new DecimalFormat("#0.00").format(getMontantTotalTTC()) + " €";
         return str;
     }
+
+	@Override
+	public void dispose() {
+		try {
+			produitDAO.dispose();
+		} catch (ProduitDAOException e) {
+			throw new RuntimeException(e);
+		}
+	}
 }
