@@ -16,7 +16,7 @@ public class Produit implements I_Produit {
     public Produit(String nom, double prixHT, int quantite) {
     	 if (dao == null) {
          	try {
- 				dao = new ProduitDAO();
+ 				dao = ProduitDAO.getInstance();
  			} catch (ProduitDAOException e) {
  				throw new RuntimeException(e);
  			}
@@ -25,12 +25,6 @@ public class Produit implements I_Produit {
     	this.nom = nom;
         this.prixHT = prixHT;
         this.quantite = quantite;
-        
-       try {
-    	   dao.addProduct(this);
-		} catch (ProduitDAOException e) {
-			throw new RuntimeException(e);
-	    }
     }
     
     
@@ -101,6 +95,20 @@ public class Produit implements I_Produit {
 
 	@Override
 	public void dispose() {
-		dao.removeProduct(this);
+		try {
+			dao.removeProduct(this);
+		} catch (ProduitDAOException e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+
+	@Override
+	public void save() {
+		try {
+    	   dao.addProduct(this);
+		} catch (ProduitDAOException e) {
+			throw new RuntimeException(e);
+	    }
 	}
 }

@@ -5,13 +5,26 @@ import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 
+import dal.ProduitDAO;
+import dal.ProduitDAOException;
+
 public class Catalogue implements I_Catalogue {
     
-    private final List<I_Produit> produits = new ArrayList<>();
+    private final List<I_Produit> produits;
+    private ProduitDAO produitDAO;
     
     private static Catalogue catalogue = null;
     
     private Catalogue() {
+		try {
+			if (produitDAO == null) {
+				produitDAO = ProduitDAO.getInstance();
+			}
+			
+			produits = produitDAO.getAllProduct();
+		} catch (ProduitDAOException e) {
+			throw new RuntimeException(e);
+		}
     }
     
     public static Catalogue getCatalogue() {
@@ -58,6 +71,7 @@ public class Catalogue implements I_Catalogue {
             return false;
         }
         produits.add(produit);
+        produit.save(); //new product
         return true;
     }
     

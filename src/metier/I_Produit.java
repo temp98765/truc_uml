@@ -9,5 +9,5 @@ public interface I_Produit {
     public abstract double getPrixStockTTC();
     public abstract String toString();
     public abstract void dispose();
-
+    public abstract void save();
 }
