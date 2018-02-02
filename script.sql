@@ -7,7 +7,8 @@ create table Produit (
 	prixHt number,
 	quantite integer,
 
-	constraint pk_id primary key (id)
+	constraint pk_id primary key (id),
+	constraint un_nom UNIQUE (nom)
 );
 
 create sequence seq_id start with 1;
