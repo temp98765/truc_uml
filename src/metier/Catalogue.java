@@ -7,7 +7,7 @@ import java.util.List;
 
 public class Catalogue implements I_Catalogue {
     
-    private final List<Produit> produits = new ArrayList<>();
+    private final List<I_Produit> produits = new ArrayList<>();
     
     private static Catalogue catalogue = null;
     
@@ -29,8 +29,8 @@ public class Catalogue implements I_Catalogue {
     	return newName;
     }
     
-    private Produit getProductByName(String name) {
-        for (Produit produit : produits) {
+    private I_Produit getProductByName(String name) {
+        for (I_Produit produit : produits) {
             if (produit.getNom().equals(name)) {
                 return produit;
             }
@@ -44,21 +44,20 @@ public class Catalogue implements I_Catalogue {
             return false;
         }
         
-        Produit myProduct = new Produit(cleanName(produit.getNom()), produit.getPrixUnitaireHT(), produit.getQuantite());
         
-        if (getProductByName(myProduct.getNom()) != null) {
+        if (getProductByName(produit.getNom()) != null) {
             return false;
         }
         
-        if (myProduct.getQuantite() < 0) {
+        if (produit.getQuantite() < 0) {
             return false;
         }
         
         
-        if (myProduct.getPrixUnitaireHT() <= 0) {
+        if (produit.getPrixUnitaireHT() <= 0) {
             return false;
         }
-        produits.add(myProduct);
+        produits.add(produit);
         return true;
     }
     
@@ -86,7 +85,7 @@ public class Catalogue implements I_Catalogue {
     @Override
     public double getMontantTotalTTC() {
         double total = 0;
-        for (Produit produit : produits) {
+        for (I_Produit produit : produits) {
         	total += (produit.getPrixUnitaireHT() + produit.getPrixUnitaireHT() * 0.2f) * produit.getQuantite();
         }
         return (double)Math.round(total * 100d) / 100d;
@@ -99,11 +98,12 @@ public class Catalogue implements I_Catalogue {
         }
         
         String myName = nom.trim();
-        Iterator<Produit> it = produits.iterator();
+        Iterator<I_Produit> it = produits.iterator();
         while (it.hasNext()) {
-            Produit produit = it.next();
+        	I_Produit produit = it.next();
             if (produit.getNom().equals(myName)) {
-                it.remove();
+                produit.dispose();
+            	it.remove();
             	return true;
             }
         }
@@ -112,7 +112,7 @@ public class Catalogue implements I_Catalogue {
 
     @Override
     public boolean acheterStock(String nomProduit, int qteAchetee) {
-        Produit product = getProductByName(nomProduit.trim());
+    	I_Produit product = getProductByName(nomProduit.trim());
         if (product == null) {
             return false;
         }
@@ -122,7 +122,7 @@ public class Catalogue implements I_Catalogue {
 
     @Override
     public boolean vendreStock(String nomProduit, int qteVendue) {
-        Produit product = getProductByName(nomProduit.trim());
+    	I_Produit product = getProductByName(nomProduit.trim());
         if (product == null) {
             return false;
         }
@@ -148,7 +148,7 @@ public class Catalogue implements I_Catalogue {
     @Override
     public String toString() {
         String str = new String();
-        for (Produit produit : produits) {
+        for (I_Produit produit : produits) {
             str += produit.toString();
         }
         str += "\nMontant total TTC du stock : " + new DecimalFormat("#0.00").format(getMontantTotalTTC()) + " €";

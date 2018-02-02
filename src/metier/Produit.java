@@ -1,22 +1,38 @@
 package metier;
-import java.math.RoundingMode;
+
 import java.text.DecimalFormat;
+
+import dal.ProduitDAO;
+import dal.ProduitDAOException;
 
 public class Produit implements I_Produit {
     
+	static ProduitDAO dao = null;
+	
     private final String nom;
     private final double prixHT;
     private int quantite;
     
     public Produit(String nom, double prixHT, int quantite) {
-        this.nom = nom;
+    	 if (dao == null) {
+         	try {
+ 				dao = new ProduitDAO();
+ 			} catch (ProduitDAOException e) {
+ 				throw new RuntimeException(e);
+ 			}
+         }
+    	
+    	this.nom = nom;
         this.prixHT = prixHT;
         this.quantite = quantite;
+        
+       try {
+    	   dao.addProduct(this);
+		} catch (ProduitDAOException e) {
+			throw new RuntimeException(e);
+	    }
     }
     
-    static Produit createProduit(String nom, double prixHT, int quantite) {
-        return new Produit(nom, prixHT, quantite);
-    }
     
     @Override
     public String toString() {
@@ -29,6 +45,11 @@ public class Produit implements I_Produit {
             return false;
         }
         quantite += qteAchetee;
+        try {
+			dao.updateProduct(this);
+		} catch (ProduitDAOException e) {
+			throw new RuntimeException(e);
+		}
         return true;
     }
 
@@ -42,6 +63,11 @@ public class Produit implements I_Produit {
         } 
          
         quantite -= qteVendue;
+        try {
+			dao.updateProduct(this);
+		} catch (ProduitDAOException e) {
+			throw new RuntimeException(e);
+		}
         return true;
     }
 
@@ -71,4 +97,10 @@ public class Produit implements I_Produit {
     	double value = getPrixUnitaireTTC() * quantite;
     	return (double)Math.round(value * 100d) / 100d;
     }
+
+
+	@Override
+	public void dispose() {
+		dao.removeProduct(this);
+	}
 }

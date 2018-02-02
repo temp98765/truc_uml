@@ -8,8 +8,7 @@ import metier.Catalogue;
 
 
 
-public class FenetrePrincipale extends JFrame implements ActionListener,
-		WindowListener {
+public class FenetrePrincipale extends JFrame implements ActionListener, WindowListener {
 
 	private JButton btAfficher;
 	private JButton btNouveauProduit;
@@ -98,7 +97,6 @@ public class FenetrePrincipale extends JFrame implements ActionListener,
 	}
 
 	public void windowClosing(WindowEvent arg0) {
-		System.out.println("Au revoir");
 		System.exit(0);
 	}
 
