@@ -71,7 +71,7 @@ public class FenetrePrincipale extends JFrame implements ActionListener, WindowL
 		String[] tabProduits = ControleurConnaitreEtatStock.getAllProductName();
 		
 		if (e.getSource() == btAfficher)
-			new FenetreAffichage(ControleurConnaitreEtatStock.getStock());
+			new FenetreAffichage("Catalogue : " + ControleurGererCatalogue.getNameCurrentCatalogue() + "\n" + ControleurConnaitreEtatStock.getStock());
 		if (e.getSource() == btNouveauProduit)
 //			new FenetreNouveauProduit(tabCategories);
 			new FenetreNouveauProduit();
@@ -81,8 +81,9 @@ public class FenetrePrincipale extends JFrame implements ActionListener, WindowL
 //			new FenetreNouvelleCategorie();
 //		if (e.getSource() == btSupprimerCategorie)
 //			new FenetreSuppressionCategorie(tabCategories);
-		if (e.getSource() == btAchat)
+		if (e.getSource() == btAchat) {
 			new FenetreAchat(tabProduits);
+		}
 		if (e.getSource() == btVente)
 			new FenetreVente(tabProduits);
 		if (e.getSource() == btQuitter){

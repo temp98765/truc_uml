@@ -11,6 +11,7 @@ import metier.I_Catalogue;
 public class ControleurGererCatalogue {
 	
 	private static I_CatalogueDAO dao = CatalogueDAOFactory.createCatalogueDAO();
+	private static I_Catalogue currentCatalogue;
 	
 	public static List<String> getAllCataloguesName() {
 		try {
@@ -51,6 +52,7 @@ public class ControleurGererCatalogue {
 		ControleurConnaitreEtatStock.setCatalogue(catalogue);
 		ControleurCreerOuSupprimerUnProduit.setCatalogue(catalogue);
 		ControleurEnregistrerUnAchatOuUneVente.setCatalogue(catalogue);
+		currentCatalogue = catalogue;
 	}
 
 	public static void removeCatalogue(String name) {
@@ -59,5 +61,9 @@ public class ControleurGererCatalogue {
 		} catch (CatalogueDAOException e) {
 			throw new RuntimeException(e);
 		}
+	}
+
+	public static String getNameCurrentCatalogue() {
+		return currentCatalogue.getNom();
 	}
 }
