@@ -5,13 +5,14 @@ import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 
+import dal.I_ProduitDAO;
 import dal.ProduitDAO;
 import dal.ProduitDAOException;
 
 public class Catalogue implements I_Catalogue {
     
     private final List<I_Produit> produits;
-    private ProduitDAO produitDAO;
+    private I_ProduitDAO produitDAO;
     
     private static Catalogue catalogue = null;
     

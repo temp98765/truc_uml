@@ -2,12 +2,13 @@ package metier;
 
 import java.text.DecimalFormat;
 
+import dal.I_ProduitDAO;
 import dal.ProduitDAO;
 import dal.ProduitDAOException;
 
 public class Produit implements I_Produit {
     
-	static ProduitDAO dao = null;
+	static I_ProduitDAO dao = null;
 	
     private final String nom;
     private final double prixHT;
